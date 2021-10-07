@@ -61,5 +61,15 @@
             <description>The microflow that is executed when the popup is shown.</description>
             <returnType type="Void" />
         </property>
+        <property key="addCloseButton" type="enumeration" required="true" defaultValue="Inside">
+            <caption>Add a close button</caption>
+            <category>Appearance</category>
+            <description>Option to set if a close button should be displayed.</description>
+            <enumerationValues>
+                <enumerationValue key="No">No</enumerationValue>
+                <enumerationValue key="Inside">Inside</enumerationValue>
+                <enumerationValue key="Outside">Outside</enumerationValue>
+            </enumerationValues>
+        </property>
     </properties>
 </widget>

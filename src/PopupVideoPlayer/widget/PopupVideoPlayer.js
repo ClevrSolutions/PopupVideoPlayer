@@ -32,6 +32,7 @@ define([
         jsonpcb : null,
         buttonClickHandler : null,
         objectId : null,
+		addCloseButton: null,
 
         _aspectRatio: null,
 
@@ -242,6 +243,32 @@ define([
             this.resetJsonp();
             this.removePopup();
             this.resetClickHandler();
+        },
+
+        createCloseButton: function (cfgObj) {
+            if (!(cfgObj && cfgObj.parentNode)) {
+                return false;
+            }
+            var constructOpts = {
+                "class": "popupVideoPlayer-closeBtn"
+            };
+            var fallbackOutside = (this.addCloseButton === "Outside");
+            if (this.addCloseButton === "Inside") {
+                if (typeof cfgObj.parentWidth === "number" && cfgObj.parentWidth > 50) {
+                    constructOpts.class = constructOpts.class + " popupVideoPlayer-closeBtn-inside";
+                    constructOpts.style = "margin-left: " + (cfgObj.parentWidth - 40) + "px;";
+                } else {
+                    logger.warn("Unable to set close button inside due to small width");
+                    fallbackOutside = true;
+                }
+            }
+            if (fallbackOutside) {
+                constructOpts.class = constructOpts.class + " popupVideoPlayer-closeBtn-outside";
+            }
+            var btn = domConstruct.create("div", constructOpts);
+            btn.innerHTML = "X";
+            this.connect(btn, "click", lang.hitch(this, this.removePopup));
+            domConstruct.place(btn, cfgObj.parentNode, "first");
         }
 
     });
